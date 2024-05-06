@@ -1,0 +1,20 @@
+  syntax = "proto3";
+
+  package otp.v1;
+
+  option go_package = "auth-service/gen/external/v1;otpv1";
+
+  service OtpService {
+    // generate a randomised OTP using Twilio's API 
+    rpc VerifyPhoneNumber(VerifyPhoneNumberRequest) returns (VerifyPhoneNumberResponse); 
+  }
+
+  message VerifyPhoneNumberRequest {
+      string phone_number = 1;
+  }
+
+  message VerifyPhoneNumberResponse {
+      string message = 1;
+      string otp = 2;
+      bool success = 3;
+  }

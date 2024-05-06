@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "auth-service/gen/auth/v1;authv1";
+
+// The user service definition.
+service AuthService {
+  // Signs up a user with a phone number.
+  rpc SignupWithPhoneNumber(SignupRequest) returns (SignupResponse);
+  rpc GetProfile(GetProfileRequest) returns (GetProfileResponse);
+  rpc ValidatePhoneNumberLogin(LoginRequest) returns (LoginResponse);
+  rpc LoginWithPhoneNumber(VerifyPhoneNumberRequest) returns (VerifyPhoneNumberResponse);
+}
+
+// The request message containing user details.
+message SignupRequest {
+  string phone_number = 1;
+  string email = 2;
+  string first_name = 3;
+  string last_name = 4;
+}
+
+// The response message containing the results of the signup process.
+message SignupResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message GetProfileRequest {
+    string phone_number = 1;
+}
+
+message GetProfileResponse {
+    string phone_number = 1;
+    string email = 2;
+    string first_name = 3;
+    string last_name = 4;
+    bool success = 5;
+}
+
+message LoginRequest {
+    string phone_number = 1;
+    string otp = 2;
+}
+
+message LoginResponse {
+    string access_token = 1;
+    bool success = 2;
+}
+
+message VerifyPhoneNumberRequest {
+    string phone_number = 1;
+    string otp = 2;
+}
+
+message VerifyPhoneNumberResponse {
+    string message = 1;
+    bool success = 2;
+}
