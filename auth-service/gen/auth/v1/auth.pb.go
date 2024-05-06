@@ -20,7 +20,7 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// The request message containing user details.
+// The request message containing user signup details.
 type SignupRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -148,6 +148,7 @@ func (x *SignupResponse) GetMessage() string {
 	return ""
 }
 
+// The request message for getting user profile.
 type GetProfileRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -195,6 +196,7 @@ func (x *GetProfileRequest) GetPhoneNumber() string {
 	return ""
 }
 
+// The response message containing user profile details.
 type GetProfileResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -274,6 +276,7 @@ func (x *GetProfileResponse) GetSuccess() bool {
 	return false
 }
 
+// The request message for user login.
 type LoginRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -329,6 +332,7 @@ func (x *LoginRequest) GetOtp() string {
 	return ""
 }
 
+// The response message containing access token and login success status.
 type LoginResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -384,6 +388,7 @@ func (x *LoginResponse) GetSuccess() bool {
 	return false
 }
 
+// The request message for verifying phone number with OTP.
 type VerifyPhoneNumberRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -439,6 +444,7 @@ func (x *VerifyPhoneNumberRequest) GetOtp() string {
 	return ""
 }
 
+// The response message containing verification status and message.
 type VerifyPhoneNumberResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

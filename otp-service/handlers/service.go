@@ -1,3 +1,5 @@
 package handlers
 
-type OtpServer struct{}
+// OtpServer handles OTP-related requests
+type OtpServer struct {
+}

@@ -11,7 +11,7 @@ import (
 func LoadEnv() {
 	// Load .env file
 	if err := godotenv.Load(); err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		log.Printf("Error loading .env file: ", err)
 	}
 }
 
@@ -25,8 +25,17 @@ type TwilioAPIConfig struct {
 // GetTwilioAPIConfig retrieves Twilio API credentials from environment variables
 func GetTwilioAPIConfig() *TwilioAPIConfig {
 	return &TwilioAPIConfig{
-		AccountSID: os.Getenv("TWILIO_ACCOUNT_SID"),
-		AuthToken:  os.Getenv("TWILIO_AUTH_TOKEN"),
-		FromNumber: os.Getenv("TWILIO_FROM_NUMBER"),
+		AccountSID: getEnv("TWILIO_ACCOUNT_SID"),
+		AuthToken:  getEnv("TWILIO_AUTH_TOKEN"),
+		FromNumber: getEnv("TWILIO_FROM_NUMBER"),
 	}
+}
+
+// getEnv retrieves an environment variable or returns an empty string
+func getEnv(key string) string {
+	val := os.Getenv(key)
+	if val == "" {
+		log.Printf("Environment variable %s not found", key)
+	}
+	return val
 }

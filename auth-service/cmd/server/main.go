@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 
 	"golang.org/x/net/http2"
@@ -11,13 +13,28 @@ import (
 )
 
 func main() {
-	Auther := &handlers.AuthServer{}
+	// Set up authentication server
+	authServer := &handlers.AuthServer{}
+
+	// Set up HTTP multiplexer
 	mux := http.NewServeMux()
-	path, handler := authv1connect.NewAuthServiceHandler(Auther)
+
+	// Set up authentication service handler
+	path, handler := authv1connect.NewAuthServiceHandler(authServer)
 	mux.Handle(path, handler)
-	http.ListenAndServe(
-		"localhost:8080",
-		// Use h2c so we can serve HTTP/2 without TLS.
-		h2c.NewHandler(mux, &http2.Server{}),
-	)
+
+	// Configure server address
+	serverAddr := ":8080"
+
+	// Use h2c to serve HTTP/2 without TLS
+	server := &http.Server{
+		Addr:    serverAddr,
+		Handler: h2c.NewHandler(mux, &http2.Server{}),
+	}
+
+	// Start the server
+	fmt.Println("Server started at", serverAddr)
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatalf("Server error: ", err)
+	}
 }

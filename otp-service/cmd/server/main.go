@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
 
 	"golang.org/x/net/http2"
@@ -11,13 +13,28 @@ import (
 )
 
 func main() {
-	Otper := &handlers.OtpServer{}
+	// Set up OTP server
+	otper := &handlers.OtpServer{}
+
+	// Set up HTTP multiplexer
 	mux := http.NewServeMux()
-	path, handler := otpv1connect.NewOtpServiceHandler(Otper)
+
+	// Set up OTP service handler
+	path, handler := otpv1connect.NewOtpServiceHandler(otper)
 	mux.Handle(path, handler)
-	http.ListenAndServe(
-		"localhost:8081",
-		// Use h2c so we can serve HTTP/2 without TLS.
-		h2c.NewHandler(mux, &http2.Server{}),
-	)
+
+	// Configure server address
+	serverAddr := ":8081"
+
+	// Use h2c to serve HTTP/2 without TLS
+	server := &http.Server{
+		Addr:    serverAddr,
+		Handler: h2c.NewHandler(mux, &http2.Server{}),
+	}
+
+	// Start the server
+	fmt.Println("Server started at", serverAddr)
+	if err := server.ListenAndServe(); err != nil {
+		log.Fatalf("Server error: ", err)
+	}
 }

@@ -20,11 +20,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Define the request message for generating OTP.
 type VerifyPhoneNumberRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Phone number for which OTP needs to be generated.
 	PhoneNumber string `protobuf:"bytes,1,opt,name=phone_number,json=phoneNumber,proto3" json:"phone_number,omitempty"`
 }
 
@@ -67,14 +69,18 @@ func (x *VerifyPhoneNumberRequest) GetPhoneNumber() string {
 	return ""
 }
 
+// Define the response message for generating OTP.
 type VerifyPhoneNumberResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Description or status message.
 	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
-	Otp     string `protobuf:"bytes,2,opt,name=otp,proto3" json:"otp,omitempty"`
-	Success bool   `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
+	// The generated OTP.
+	Otp string `protobuf:"bytes,2,opt,name=otp,proto3" json:"otp,omitempty"`
+	// Indicates whether the operation was successful.
+	Success bool `protobuf:"varint,3,opt,name=success,proto3" json:"success,omitempty"`
 }
 
 func (x *VerifyPhoneNumberResponse) Reset() {

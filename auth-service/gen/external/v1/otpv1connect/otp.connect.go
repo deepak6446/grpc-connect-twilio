@@ -46,7 +46,7 @@ var (
 
 // OtpServiceClient is a client for the otp.v1.OtpService service.
 type OtpServiceClient interface {
-	// generate a randomised OTP using Twilio's API
+	// Generate a randomized OTP using Twilio's API.
 	VerifyPhoneNumber(context.Context, *connect.Request[v1.VerifyPhoneNumberRequest]) (*connect.Response[v1.VerifyPhoneNumberResponse], error)
 }
 
@@ -81,7 +81,7 @@ func (c *otpServiceClient) VerifyPhoneNumber(ctx context.Context, req *connect.R
 
 // OtpServiceHandler is an implementation of the otp.v1.OtpService service.
 type OtpServiceHandler interface {
-	// generate a randomised OTP using Twilio's API
+	// Generate a randomized OTP using Twilio's API.
 	VerifyPhoneNumber(context.Context, *connect.Request[v1.VerifyPhoneNumberRequest]) (*connect.Response[v1.VerifyPhoneNumberResponse], error)
 }
 

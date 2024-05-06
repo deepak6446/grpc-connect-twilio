@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"math/rand"
 	"strconv"
 
@@ -18,7 +18,7 @@ func (s *OtpServer) VerifyPhoneNumber(
 	req *connect.Request[Otpv1.VerifyPhoneNumberRequest],
 ) (*connect.Response[Otpv1.VerifyPhoneNumberResponse], error) {
 	// Log request received
-	log.Println("Received VerifyPhoneNumber request")
+	fmt.Println("Received VerifyPhoneNumber request")
 
 	// Load environment variables
 	LoadEnv()
@@ -27,7 +27,7 @@ func (s *OtpServer) VerifyPhoneNumber(
 
 	// Generate OTP
 	otp := generateOTP()
-	log.Printf("Generated OTP: %s", otp)
+	fmt.Println("Generated OTP:" + otp)
 
 	// Get Twilio API credentials
 	twilioConfig := GetTwilioAPIConfig()
@@ -35,12 +35,12 @@ func (s *OtpServer) VerifyPhoneNumber(
 	// Send OTP via Twilio
 	err := sendOTP(twilioConfig, phoneNumber, otp)
 	if err != nil {
-		log.Printf("Error sending OTP: %v", err)
+		fmt.Println("Error sending OTP:", err)
 		return nil, err
 	}
 
 	// Log OTP sent
-	log.Printf("OTP sent to %s", phoneNumber)
+	fmt.Println("OTP sent to:" + phoneNumber)
 
 	// Return success response
 	res := connect.NewResponse(&Otpv1.VerifyPhoneNumberResponse{
@@ -48,7 +48,7 @@ func (s *OtpServer) VerifyPhoneNumber(
 		Otp:     otp,
 	})
 	// Log response sent
-	log.Println("Sent VerifyPhoneNumber response")
+	fmt.Println("Sent VerifyPhoneNumber response")
 	return res, nil
 }
 

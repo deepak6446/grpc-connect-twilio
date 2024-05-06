@@ -3,18 +3,27 @@
   package otp.v1;
 
   option go_package = "auth-service/gen/external/v1;otpv1";
-
+  
+  // Define the service for OTP functionality.
   service OtpService {
-    // generate a randomised OTP using Twilio's API 
-    rpc VerifyPhoneNumber(VerifyPhoneNumberRequest) returns (VerifyPhoneNumberResponse); 
+      // Generate a randomized OTP using Twilio's API.
+      rpc VerifyPhoneNumber(VerifyPhoneNumberRequest) returns (VerifyPhoneNumberResponse);
   }
 
+  // Define the request message for generating OTP.
   message VerifyPhoneNumberRequest {
+      // Phone number for which OTP needs to be generated.
       string phone_number = 1;
   }
 
+  // Define the response message for generating OTP.
   message VerifyPhoneNumberResponse {
+      // Description or status message.
       string message = 1;
+      
+      // The generated OTP.
       string otp = 2;
+      
+      // Indicates whether the operation was successful.
       bool success = 3;
   }

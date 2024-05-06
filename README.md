@@ -29,6 +29,9 @@ go run ./cmd/server/main.go
 To install grpcurl follow command in ``` install.sh``` in each folder.
 
 ### Auth (Authentication Service)
+```
+cd auth-service
+```
 To signup with a phone number: 
 ```
 ./grpcurl -protoset <(buf build -o -) -plaintext -d '{"first_name": "deepak", "phone_number": "8888760147", "email": "deepak.r.poojari@gmail.com", "last_name": "poojari"}' localhost:8080 auth.v1.AuthService/SignupWithPhoneNumber 
@@ -36,12 +39,12 @@ To signup with a phone number:
 
 To Verify Account: 
 ```
-./grpcurl -protoset <(buf build -o -) -plaintext  -d '{"phone_number": "8888760147", "otp": "6022"}' localhost:8080 auth.v1.AuthService/LoginWithPhoneNumber
+./grpcurl -protoset <(buf build -o -) -plaintext  -d '{"phone_number": "8888760147", "otp": "3842"}' localhost:8080 auth.v1.AuthService/LoginWithPhoneNumber
 ```
 
 To Login: 
 ```
-./grpcurl -protoset <(buf build -o -) -plaintext  -d '{"phone_number": "8888760147", "otp": "6022"}' localhost:8080 auth.v1.AuthService/ValidatePhoneNumberLogin
+./grpcurl -protoset <(buf build -o -) -plaintext  -d '{"phone_number": "8888760147", "otp": "3842"}' localhost:8080 auth.v1.AuthService/ValidatePhoneNumberLogin
 ```
 
 To Get Profile: 
@@ -50,6 +53,9 @@ To Get Profile:
 ```
 
 ### OTP Generation (OTP Generation Service)
+```
+cd otp-service
+```
 To generate an OTP using gRPC: 
 ```
 ./grpcurl -protoset <(buf build -o -) -plaintext \ -d '{"phone_number": "8888760147"}' \ localhost:8081 otp.v1.OtpService/VerifyPhoneNumber

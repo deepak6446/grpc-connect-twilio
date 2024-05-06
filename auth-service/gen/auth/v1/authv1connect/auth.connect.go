@@ -59,8 +59,11 @@ var (
 type AuthServiceClient interface {
 	// Signs up a user with a phone number.
 	SignupWithPhoneNumber(context.Context, *connect.Request[v1.SignupRequest]) (*connect.Response[v1.SignupResponse], error)
+	// Retrieves user profile based on phone number.
 	GetProfile(context.Context, *connect.Request[v1.GetProfileRequest]) (*connect.Response[v1.GetProfileResponse], error)
+	// Validates user login with phone number and OTP.
 	ValidatePhoneNumberLogin(context.Context, *connect.Request[v1.LoginRequest]) (*connect.Response[v1.LoginResponse], error)
+	// Performs user login with phone number and OTP.
 	LoginWithPhoneNumber(context.Context, *connect.Request[v1.VerifyPhoneNumberRequest]) (*connect.Response[v1.VerifyPhoneNumberResponse], error)
 }
 
@@ -133,8 +136,11 @@ func (c *authServiceClient) LoginWithPhoneNumber(ctx context.Context, req *conne
 type AuthServiceHandler interface {
 	// Signs up a user with a phone number.
 	SignupWithPhoneNumber(context.Context, *connect.Request[v1.SignupRequest]) (*connect.Response[v1.SignupResponse], error)
+	// Retrieves user profile based on phone number.
 	GetProfile(context.Context, *connect.Request[v1.GetProfileRequest]) (*connect.Response[v1.GetProfileResponse], error)
+	// Validates user login with phone number and OTP.
 	ValidatePhoneNumberLogin(context.Context, *connect.Request[v1.LoginRequest]) (*connect.Response[v1.LoginResponse], error)
+	// Performs user login with phone number and OTP.
 	LoginWithPhoneNumber(context.Context, *connect.Request[v1.VerifyPhoneNumberRequest]) (*connect.Response[v1.VerifyPhoneNumberResponse], error)
 }
 
